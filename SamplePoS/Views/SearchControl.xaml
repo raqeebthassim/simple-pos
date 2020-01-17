@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="SamplePoS.Views.SearchControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    x:Name="SearchContent"
+    mc:Ignorable="d"
+    d:DesignHeight="40"
+    d:DesignWidth="400">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5" HorizontalAlignment="Left">
+            <TextBlock Text="Customer" FontSize="16" FontWeight="Black" Margin="5" ></TextBlock>
+            <AutoSuggestBox
+                        QueryIcon="Find"
+                        PlaceholderText="Enter customer name"
+                        Text="{Binding CustomerSearchText, Mode=TwoWay}"
+                        MinWidth="200" MaxWidth="600"
+                        ItemsSource="{Binding SuggestedCustomers}">
+            </AutoSuggestBox>
+            <Button FontFamily="Segoe MDL2 Assets" Command="{Binding AddCustomerCommand}" Content="&#xE948;" Width="Auto" Height="32"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

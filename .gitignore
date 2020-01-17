@@ -1,0 +1,8 @@
+SamplePoS.Core/obj/
+SamplePoS.Core/bin/
+SamplePoS/bin/
+SamplePoS/obj/
+EfCoreMigrationApplication/bin/
+EfCoreMigrationApplication/obj/
+.vs/
+

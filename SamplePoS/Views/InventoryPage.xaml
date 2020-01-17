@@ -1,0 +1,171 @@
+﻿<Page
+    x:Class="SamplePoS.Views.InventoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Interactions="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="5">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls:DataGrid
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="False"
+                GridLinesVisibility="All"
+                AlternatingRowBackground="LightGray"
+                ItemsSource="{Binding ProductList}">
+                <Interactivity:Interaction.Behaviors>
+                    <Interactions:EventTriggerBehavior EventName="SelectionChanged" >
+                        <Interactions:InvokeCommandAction Command="{Binding SelectionChangedCommand}"/>
+                    </Interactions:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn 
+                        Header="Name" 
+                        Width="*"
+                        Binding="{Binding Product.Name}" />
+                    <controls:DataGridTextColumn 
+                        Header="Description" 
+                        Width="*"
+                        Binding="{Binding Product.Description}" />
+                    <controls:DataGridTextColumn 
+                        Header="Category" 
+                        Width="*"
+                        Binding="{Binding Product.Category.Name}" />
+                    <controls:DataGridTextColumn 
+                        Header="Quantity" 
+                        Width="*"
+                        Binding="{Binding Product.Quantity}" />
+                    <controls:DataGridTextColumn 
+                        Header="Vendor" 
+                        Width="*"
+                        Binding="{Binding Product.Vendor.Name}" />
+                    <controls:DataGridTextColumn 
+                        Header="Cost" 
+                        Width="*"
+                        Binding="{Binding Product.BuyingPrice}" />
+                    <controls:DataGridTextColumn 
+                        Header="Price" 
+                        Width="*"
+                        Binding="{Binding Product.SellingPrice}" />
+                    <controls:DataGridTemplateColumn
+                            Width="Auto"
+                            IsReadOnly="True"
+                            >
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="DeleteBatch"
+                                            FontFamily="Segoe MDL2 Assets"
+                                            Content="&#xEA39;"
+                                            FontSize="25"
+                                            FontWeight="Black"
+                                            Background="IndianRed"
+                                            Command="{Binding DeleteCommand}">
+                                </Button>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Padding="5" Background="Gainsboro">
+                <TextBlock Margin="5" Text="Product" FontSize="20" FontWeight="Bold" ></TextBlock>
+                <Grid Margin="5" RowSpacing="5" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" FontWeight="Black">Name</TextBlock>
+                    <TextBox
+                            Grid.Column="1"
+                            Text="{Binding Product.Name, Mode=TwoWay}"></TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"  FontWeight="Black">Description</TextBlock>
+                    <TextBox
+                            Height="100"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Text="{Binding Product.Description, Mode=TwoWay}"></TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"  FontWeight="Black">Category</TextBlock>
+                    <ComboBox
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
+                    </ComboBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"  FontWeight="Black">Quantity</TextBlock>
+                    <TextBox
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            extensions:TextBoxRegex.ValidationMode="Dynamic"
+                            extensions:TextBoxRegex.ValidationType="Decimal"
+                            Text="{Binding Product.Quantity, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"  FontWeight="Black">Vendor</TextBlock>
+                    <ComboBox
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            ItemsSource="{Binding Vendors}"
+                            SelectedItem="{Binding SelectedVendor, Mode=TwoWay}"
+                            ></ComboBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"  FontWeight="Black">Cost</TextBlock>
+                    <TextBox
+                            Grid.Column="1"
+                            Grid.Row="5"
+                            extensions:TextBoxRegex.ValidationMode="Dynamic"
+                            extensions:TextBoxRegex.ValidationType="Decimal"
+                            Text="{Binding Product.BuyingPrice, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"  FontWeight="Black">Price</TextBlock>
+                    <TextBox
+                            Grid.Column="1"
+                            Grid.Row="6"
+                            extensions:TextBoxRegex.ValidationMode="Dynamic"
+                            extensions:TextBoxRegex.ValidationType="Decimal"
+                            Text="{Binding Product.SellingPrice, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
+                    <Button Content="Add or Update"
+                            Background="CornflowerBlue"
+                            Command="{Binding AddProductCommand}"
+                            Grid.Row="7"
+                            HorizontalAlignment="Stretch"
+                            Height="50"
+                            FontWeight="Black"
+                            Margin="2"
+                            Grid.Column="1">
+                    </Button>
+                    <Button Content="Reset"
+                            Background="MediumVioletRed"
+                            Grid.Column="0"
+                            FontWeight="Black"
+                            Grid.Row="7"
+                            Margin="0,0,2,0"
+                            Height="50"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding ResetProductCommand}">
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
