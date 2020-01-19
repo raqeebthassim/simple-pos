@@ -305,7 +305,7 @@ namespace SamplePoS.ViewModels
             {
                 this.SuggestedProducts = this.productRepository
                     .GetProductList()
-                    .Where(p => p.Name.ToLower().StartsWith(this.SearchText.ToLower()))
+                    .Where(p => p.Name.ToLower().Contains(this.SearchText.ToLower()) || p.ProductCode.ToLower().Contains(this.SearchText.ToLower()))
                     .Select(p => p.Name)
                     .ToList();
             }

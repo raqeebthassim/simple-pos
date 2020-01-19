@@ -34,6 +34,10 @@
                 </Interactivity:Interaction.Behaviors>
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn 
+                        Header="ItemCode" 
+                        Width="*"
+                        Binding="{Binding Product.ProductCode}" />
+                    <controls:DataGridTextColumn
                         Header="Name" 
                         Width="*"
                         Binding="{Binding Product.Name}" />
@@ -96,58 +100,65 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" FontWeight="Black">Name</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" FontWeight="Black">ItemCode</TextBlock>
                     <TextBox
                             Grid.Column="1"
+                            Text="{Binding Product.ProductCode, Mode=TwoWay}">
+                    </TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" FontWeight="Black">Name</TextBlock>
+                    <TextBox
+                            Grid.Row="1" 
+                            Grid.Column="1"
                             Text="{Binding Product.Name, Mode=TwoWay}"></TextBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"  FontWeight="Black">Description</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"  FontWeight="Black">Description</TextBlock>
                     <TextBox
                             Height="100"
                             TextWrapping="Wrap"
                             AcceptsReturn="True"
                             Grid.Column="1"
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Text="{Binding Product.Description, Mode=TwoWay}"></TextBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"  FontWeight="Black">Category</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"  FontWeight="Black">Category</TextBlock>
                     <ComboBox
                             Grid.Column="1"
-                            Grid.Row="2"
+                            Grid.Row="3"
                             ItemsSource="{Binding Categories}"
                             SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
                     </ComboBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"  FontWeight="Black">Quantity</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"  FontWeight="Black">Quantity</TextBlock>
                     <TextBox
                             Grid.Column="1"
-                            Grid.Row="3"
+                            Grid.Row="4"
                             extensions:TextBoxRegex.ValidationMode="Dynamic"
                             extensions:TextBoxRegex.ValidationType="Decimal"
                             Text="{Binding Product.Quantity, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"  FontWeight="Black">Vendor</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"  FontWeight="Black">Vendor</TextBlock>
                     <ComboBox
                             Grid.Column="1"
-                            Grid.Row="4"
+                            Grid.Row="5"
                             ItemsSource="{Binding Vendors}"
                             SelectedItem="{Binding SelectedVendor, Mode=TwoWay}"
                             ></ComboBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"  FontWeight="Black">Cost</TextBlock>
-                    <TextBox
-                            Grid.Column="1"
-                            Grid.Row="5"
-                            extensions:TextBoxRegex.ValidationMode="Dynamic"
-                            extensions:TextBoxRegex.ValidationType="Decimal"
-                            Text="{Binding Product.BuyingPrice, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
-                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"  FontWeight="Black">Price</TextBlock>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"  FontWeight="Black">Cost</TextBlock>
                     <TextBox
                             Grid.Column="1"
                             Grid.Row="6"
+                            extensions:TextBoxRegex.ValidationMode="Dynamic"
+                            extensions:TextBoxRegex.ValidationType="Decimal"
+                            Text="{Binding Product.BuyingPrice, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
+                    <TextBlock Width="100" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"  FontWeight="Black">Price</TextBlock>
+                    <TextBox
+                            Grid.Column="1"
+                            Grid.Row="7"
                             extensions:TextBoxRegex.ValidationMode="Dynamic"
                             extensions:TextBoxRegex.ValidationType="Decimal"
                             Text="{Binding Product.SellingPrice, Converter={StaticResource ValueToDecimal}, Mode=TwoWay}"></TextBox>
                     <Button Content="Add or Update"
                             Background="CornflowerBlue"
                             Command="{Binding AddProductCommand}"
-                            Grid.Row="7"
+                            Grid.Row="8"
                             HorizontalAlignment="Stretch"
                             Height="50"
                             FontWeight="Black"
@@ -158,7 +169,7 @@
                             Background="MediumVioletRed"
                             Grid.Column="0"
                             FontWeight="Black"
-                            Grid.Row="7"
+                            Grid.Row="8"
                             Margin="0,0,2,0"
                             Height="50"
                             HorizontalAlignment="Stretch"

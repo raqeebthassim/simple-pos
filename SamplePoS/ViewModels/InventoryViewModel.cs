@@ -70,13 +70,21 @@ namespace SamplePoS.ViewModels
             this.SelectedVendor = null;
         }
 
-        private void HandleAddProduct()
+        private async void HandleAddProduct()
         {
             this.Product.Category = this.categoryRepository.QueryCategories(c => c.Name.Equals(selectedCategory)).FirstOrDefault();
             this.Product.Vendor = this.vendorRepository.GetVendor(v => v.Name.Equals(selectedVendor));
-            this.productRepository.Create(Product);
-            this.HandleResetProduct();
-            RaisePropertyChanged("ProductList");
+            if (!string.IsNullOrEmpty(this.Product.ProductCode))
+            {
+                await this.productRepository.Create(Product);
+                this.HandleResetProduct();
+                RaisePropertyChanged("ProductList");
+            }
+            else
+            {
+                this.messageDialog.Content = "Item Code cannot be empty";
+                await this.messageDialog.ShowAsync();
+            }
         }
 
 

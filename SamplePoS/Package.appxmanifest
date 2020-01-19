@@ -49,6 +49,7 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="pointOfService" />
   </Capabilities>
 
   <genTemplate:Metadata>
